@@ -1,11 +1,10 @@
 import React, {useState, useEffect } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { getDatabase, ref, onValue } from "firebase/database";
 
-const stack = createStackNavigator();
+
 
 function HomeScreen({ navigation }) {
   const route = useRoute();
@@ -44,7 +43,7 @@ function HomeScreen({ navigation }) {
 
       <View style={{ width: '90%', height: '20%', flexDirection: 'row', justifyContent: 'space-between', }}>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Remedios')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Remedios', { user })}>
           <Text style={styles.textButton}>Remédios </Text>
         </TouchableOpacity>
 
@@ -55,11 +54,11 @@ function HomeScreen({ navigation }) {
       <View style={{ width: '90%', height: '20%', flexDirection: 'row', justifyContent: 'space-between', }}>
 
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HM')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HM', { user })}>
           <Text style={styles.textButton}>Historico Medico </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Contatos')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Contatos', { user })}>
           <Text style={styles.textButton}>Contatos de Emerg. </Text>
         </TouchableOpacity>
       </View>

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button, Image, ScrollView, Modal } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { getDatabase, onValue, push, ref, set, on, once } from "firebase/database";
+import { getDatabase, onValue, push, ref, set, on, once, remove } from "firebase/database";
 
+function deletarItem(referencia,idEspecifico){
+    console.log('ADICIONAR ESSA FUNÇÃO DEPOIS' );
+    
+}
 
 const AlergiasScreen = ({ navigation }) => {
 
@@ -36,6 +40,8 @@ const AlergiasScreen = ({ navigation }) => {
         };
     }, []); // A dependência vazia [] garante que o useEffect seja chamado apenas uma vez
 
+    
+
     console.log('Itens do banco:', itensDoBancoDeDados);
 
     return (
@@ -60,7 +66,7 @@ const AlergiasScreen = ({ navigation }) => {
                                 {item.nomeAlergia}
                             </Text>
                             <Text style={styles.descricao}>
-                            <Text style={styles.negrito}>Descrição:</Text>  {item.descricaoAlergia}
+                                <Text style={styles.negrito}>Descrição:</Text>  {item.descricaoAlergia}
                             </Text>
 
                         </TouchableOpacity>
@@ -70,32 +76,46 @@ const AlergiasScreen = ({ navigation }) => {
                         transparent={true}
                         visible={modalVisivel}
                         animationType="slide"
-
+                        
                     >
+                        <View style ={ styles.menor}>
+                        <View style={styles.Modaldelete}>
+                            <TouchableOpacity 
+                            style={styles.ButtonDelete}
+                            onPress={()=> deletarItem(referencia,idEspecifico)}
+                            >
+                                <Image
+                                    style={styles.lixeira}
+                                    source={require('../image/lixeira.png')}
+                                />
+                                <Text>DELETAR</Text>
+                            </TouchableOpacity>
+                        </View>
                         <View style={styles.Modal}>
                             {itensDoBancoDeDados.map((item) => (
                                 item.id === idEspecifico && (
-                                <TouchableOpacity
-                                    style={styles.caixaMODAL}
-                                    key={item.id}
-                                    onPress={() => setModalVisivel(false)}
-                                >
+                                    <TouchableOpacity
+                                        style={styles.caixaMODAL}
+                                        key={item.id}
+                                        onPress={() => setModalVisivel(false)}
+                                    >
 
-                                    <Text style={styles.nome}>
-                                        {item.nomeAlergia}
-                                    </Text>
-                                    <Text style={styles.descricao}>
-                                    <Text style={styles.negrito}>Descrição: </Text>{item.descricaoAlergia}
-                                    </Text>
-                                    <Text style={styles.descricao}>
-                                    <Text style={styles.negrito}>Plano de Ação: </Text>{item.planoAcao}
-                                    </Text><Text style={styles.descricao}>
-                                    <Text style={styles.negrito}>alergiasCruzadas: </Text>{item.alergiasCruzadas}
-                                    </Text>
+                                        <Text style={styles.nome}>
+                                            {item.nomeAlergia}
+                                        </Text>
+                                        <Text style={styles.descricao}>
+                                            <Text style={styles.negrito}>Descrição: </Text>{item.descricaoAlergia}
+                                        </Text>
+                                        <Text style={styles.descricao}>
+                                            <Text style={styles.negrito}>Plano de Ação: </Text>{item.planoAcao}
+                                        </Text><Text style={styles.descricao}>
+                                            <Text style={styles.negrito}>alergiasCruzadas: </Text>{item.alergiasCruzadas}
+                                        </Text>
 
-                                </TouchableOpacity>
+                                    </TouchableOpacity>
                                 )
                             ))}
+                        </View>
                         </View>
                     </Modal>
                 </View>
@@ -165,19 +185,44 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     Modal: {
-        marginTop: 150
+        marginTop: 10,
+        marginBottom: 10,
+        
     },
-    caixaMODAL:{
+    caixaMODAL: {
         backgroundColor: '#D9D9D9',
         margin: 10,
         borderRadius: 15,
         width: "95%",
-        padding: 10,
+        paddingt: 10,
         borderColor: 'black', // Cor da borda
         borderWidth: 10, // Largura da borda
     },
     negrito: {
         fontWeight: 'bold',
         fontSize: 15
-      },
+    },
+    lixeira:{
+        height:30,
+        width:30
+    },
+    ButtonDelete:{
+        backgroundColor: '#D9D9D9',
+        margin: 10,
+        borderRadius: 15,
+        width: "40%",
+        alignItems: 'center',
+        borderColor: 'black', // Cor da borda
+        borderWidth: 10, // Largura da borda
+        padding: 10,
+    },
+    Modaldelete:{
+        padding:10,
+        alignSelf: 'flex-end', 
+        marginTop:100
+    }, 
+    menor:{
+        width: '100%',
+        alignItems: 'center'
+    }
 })

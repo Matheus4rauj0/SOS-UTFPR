@@ -12,6 +12,7 @@ import BV from './Pages/BV'
 import Home from './Pages/home'
 import CADASTRO from './Pages/cadastro'
 import Add_alergiaScreen from './Pages/add_alergia';
+import Add_contatoScreen from './Pages/add_contato';
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,15 @@ function AppNavigator() {
   
             }} />
             <Stack.Screen name="add_alergia" component={Add_alergiaScreen}
+            options={{
+              title: ' ',
+              headerShown:false,
+              headerStyle: {
+                backgroundColor: '#E15100'
+              }
+  
+            }} />
+            <Stack.Screen name="add_contato" component={Add_contatoScreen}
             options={{
               title: ' ',
               headerShown:false,

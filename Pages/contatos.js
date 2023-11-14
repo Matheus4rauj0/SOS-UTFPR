@@ -48,9 +48,9 @@ return (
           key={item.id}
           style ={ styles.caixaContatos}
           >
-            <Text>Nome: {item.nomeContato} a</Text>
-            <Text>Telefone: {item.Telefone} a</Text>
-            <Text>Email: {item.Email} a</Text>
+            <Text>Nome: {item.nomeContato}</Text>
+            <Text>Telefone: {item.Telefone}</Text>
+            <Text>Email: {item.Email}</Text>
           </View>
         ))}
         <View>
@@ -98,6 +98,11 @@ const styles = StyleSheet.create({
       marginBottom: 160
     },
     caixaContatos:{
-      
+      backgroundColor: '#D9D9D9',
+        margin: 10,
+        borderRadius:15,
+        width: "96%",
+        alignItems: 'row' ,
+        padding: 10
     }
 })

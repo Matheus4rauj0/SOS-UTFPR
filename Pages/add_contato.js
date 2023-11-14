@@ -62,12 +62,12 @@ const Add_contatoScreen = ({ navigation }) => {
                 />
 
                 <View style={styles.deladin}>
-                    <TouchableOpacity style={styles.container} onPress={() => console.log('Cadastro cancelado.')}>
+                    <TouchableOpacity style={styles.container} onPress={() => navigation.goBack()}>
                         <Text style={styles.label}> Cancelar </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.container} onPress={handleCadastro}>
-                        <Text style={styles.label}> Cadastrar </Text>
+                        <Text style={styles.label}> Salvar </Text>
                     </TouchableOpacity>
                 </View>
 

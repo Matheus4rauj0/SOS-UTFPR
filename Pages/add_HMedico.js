@@ -1,21 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import firebase, { auth, database } from '../db/firebaseConfig';
-import { Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { getDatabase, push, ref, set } from "firebase/database";
 
-const Add_alergiaScreen = ({ navigation }) => {
+const Add_HM = ({ navigation }) => {
 
 
 
-    const [nomeAlergia, setNomeAlergia] = useState('');
-    const [descricaoAlergia, setDescricaoAlergia] = useState('');
-    const [alergiasCruzadas, setAlergiasCruzadas] = useState('');
-    const [planoAcao, setPlanoAcao] = useState('');
+    const [nomeDaDoenca, setNomeDaDoenca] = useState({});
+    const [dataDoDiagnostico, setDataDoDiagnostico] = useState({});
+    const [sintomas, setSintomas] = useState([{}]);
+    const [tratamento, setTratamento] = useState({});
+    const [historicoFamiliar, setHistoricoFamiliar] = useState({});
+    const [acompanhamentoPosTratamento, setAcompanhamentoPosTratamento] = useState({});
+    const [vacinacoes, setVacinacoes] = useState({});
 
 
 
@@ -25,24 +24,22 @@ const Add_alergiaScreen = ({ navigation }) => {
 
     const handleCadastro = () => {
         // Implemente aqui a lógica para enviar os dados do cadastro para o servidor ou realizar a ação desejada.
-        const referencia = push(ref(database, 'user/' + user + '/alergia'))
+        const referencia = push(ref(database, 'user/' + user + '/Historico_Medico'))
         console.log(referencia.key)
 
-        set(ref(database, 'user/' + user + '/alergia/' + referencia.key), {
-            id : referencia.key,
-            nomeAlergia : nomeAlergia, 
-            descricaoAlergia : descricaoAlergia, 
-            alergiasCruzadas :alergiasCruzadas, 
-            planoAcao: planoAcao
+        set(ref(database, 'user/' + user + '/Historico_Medico/' + referencia.key), {
+            id: referencia.key,
+            nomeDaDoenca: nomeDaDoenca,
+            dataDoDiagnostico: dataDoDiagnostico,
+            sintomas: sintomas,
+            
+            tratamento: tratamento,
+            historicoFamiliar: historicoFamiliar,
+            trataacompanhamentoPosTratamentomento: acompanhamentoPosTratamento,
+            vacinacoes: vacinacoes,
         })
-        // nomeAlergia : nomeAlergia, 
-        // descricaoAlergia : descricaoAlergia, 
-        // alergiasCruzadas :alergiasCruzadas, 
-        // planoAcao: planoAcao
-
-        console.log('tela de add alergia : ', user)
-        console.log('Dados salvos:', nomeAlergia, descricaoAlergia, alergiasCruzadas, planoAcao);
-        navigation.navigate('Alergias', { user })
+        
+        navigation.navigate('HM', { user });
     };
 
 
@@ -56,45 +53,72 @@ const Add_alergiaScreen = ({ navigation }) => {
     return (
         <ScrollView style={styles.scroll}>
             <View style={{ padding: 20, marginTop: 100 }}>
-                <Text style={styles.label}>Nome da Alergia:</Text>
+                <Text style={styles.label}>Nome da Doença:</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Nome da alergia"
-                    value={nomeAlergia}
-                    onChangeText={text => setNomeAlergia(text)}
+                    placeholder="Anote o nome oficial da doença"
+                    value={nomeDaDoenca}
+                    onChangeText={text => setNomeDaDoenca(text)}
                 />
 
-                <Text style={styles.label}>Descrição da Alergia:</Text>
+                <Text style={styles.label}>Data do Diagnóstico:</Text>
                 <TextInput
                     style={styles.inputTEX}
-                    placeholder="Descrição da alergia"
-                    value={descricaoAlergia}
-                    onChangeText={text => setDescricaoAlergia(text)}
+                    placeholder="DD/MM/AAAA"
+                    value={dataDoDiagnostico}
+                    onChangeText={text => setDataDoDiagnostico(text)}
                 />
 
-                <Text style={styles.label}>Substâncias Relacionadas:</Text>
+                <Text style={styles.label}>Sintomas:</Text>
                 <TextInput
                     style={styles.inputTEX}
-                    placeholder="Alergias cruzadas 
-                    ou substâncias relacionadas"
-                    value={alergiasCruzadas}
-                    onChangeText={text => setAlergiasCruzadas(text)}
+                    placeholder="Liste os sintomas que você experimentou"
+                    value={sintomas}
+                    onChangeText={text => setSintomas(text)}
                 />
 
-                <Text style={styles.label}>Plano de Ação</Text>
+                <Text style={styles.label}>Tratamento:</Text>
                 <TextInput
                     style={styles.inputTEX}
-                    placeholder="Plano de ação em caso de reação"
-                    value={planoAcao}
-                    onChangeText={text => setPlanoAcao(text)}
+                    placeholder="Registre os tratamentos recebidos, incluindo medicamentos, terapias, cirurgias, etc.
+                     Anote as doses, a frequência e a duração dos medicamentos"
+                    value={tratamento}
+                    onChangeText={text => setTratamento(text)}
+                />
+
+
+
+
+                <Text style={styles.label}>Histórico Familiar:</Text>
+                <TextInput
+                    style={styles.inputTEX}
+                    placeholder="Se relevante, inclua informações sobre doenças semelhantes na sua família"
+                    value={historicoFamiliar}
+                    onChangeText={text => setHistoricoFamiliar(text)}
+                />
+                <Text style={styles.label}>Acompanhamento Pós-Tratamento:</Text>
+                <TextInput
+                    style={styles.inputTEX}
+                    placeholder="Registre os tratamentos recebidos, incluindo medicamentos, terapias, cirurgias, etc.
+                     Anote as doses, a frequência e a duração dos medicamentos"
+                    value={acompanhamentoPosTratamento}
+                    onChangeText={text => setAcompanhamentoPosTratamento(text)}
+                />
+                <Text style={styles.label}>Vacinações:</Text>
+                <TextInput
+                    style={styles.inputTEX}
+                    placeholder="Mantenha um registro de vacinas relevantes,
+                     como aquelas associadas à doença que você teve ou outras vacinações importantes"
+                    value={vacinacoes}
+                    onChangeText={text => setVacinacoes(text)}
                 />
                 <View style={styles.deladin}>
-                    <TouchableOpacity style={styles.container} onPress={() => console.log('Cadastro cancelado.')}>
+                    <TouchableOpacity style={styles.container} onPress={() => navigation.goBack()}>
                         <Text style={styles.label}> Cancelar </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.container} onPress={handleCadastro}>
-                        <Text style={styles.label}> Cadastrar </Text>
+                        <Text style={styles.label}> Salvar </Text>
                     </TouchableOpacity>
                 </View>
 
@@ -165,4 +189,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Add_alergiaScreen;
+export default Add_HM;

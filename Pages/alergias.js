@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button, Image, ScrollView, Modal } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { getDatabase, onValue, push, ref, set, on, once, remove } from "firebase/database";
+import { getDatabase, onValue,ref} from "firebase/database";
 
 function deletarItem(referencia,idEspecifico){
     console.log('ADICIONAR ESSA FUNÇÃO DEPOIS' );
@@ -29,16 +29,11 @@ const AlergiasScreen = ({ navigation }) => {
                     setItensDoBancoDeDados(itens);
                 }
             });
-
         };
-
         fetchData(); // Chama a função fetchData uma vez ao montar o componente
 
-        // Remova o listener do banco de dados quando o componente for desmontado
-        return () => {
-            // Lógica para remover listeners, se necessário
-        };
-    }, []); // A dependência vazia [] garante que o useEffect seja chamado apenas uma vez
+        return () => {};
+    }, []); 
 
     
 

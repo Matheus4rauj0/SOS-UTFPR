@@ -46,7 +46,7 @@ return (
         {itensDoBancoDeDados.map( (item) => (
           <View
           key={item.id}
-          style ={ styles.caixa}
+          style ={ styles.caixaContatos}
           >
             <Text>Nome: {item.nomeContato} a</Text>
             <Text>Telefone: {item.Telefone} a</Text>
@@ -96,5 +96,8 @@ const styles = StyleSheet.create({
     },
     Scroll:{
       marginBottom: 160
+    },
+    caixaContatos:{
+      
     }
 })

@@ -89,7 +89,7 @@ const Add_alergiaScreen = ({ navigation }) => {
                     onChangeText={text => setPlanoAcao(text)}
                 />
                 <View style={styles.deladin}>
-                    <TouchableOpacity style={styles.container} onPress={() => console.log('Cadastro cancelado.')}>
+                    <TouchableOpacity style={styles.container} onPress={() => navigation.goBack()}>
                         <Text style={styles.label}> Cancelar </Text>
                     </TouchableOpacity>
 

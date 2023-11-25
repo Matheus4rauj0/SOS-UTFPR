@@ -14,6 +14,7 @@ import CADASTRO from './Pages/cadastro'
 import Add_alergiaScreen from './Pages/add_alergia';
 import Add_contatoScreen from './Pages/add_contato';
 import Add_HM from './Pages/add_HMedico'
+import TelaDeSocorro from './Pages/telaDeSocorro';
 
 const Stack = createNativeStackNavigator();
 
@@ -113,7 +114,15 @@ function AppNavigator() {
               }
   
             }} />
-
+            <Stack.Screen name="telaDeSocorro" component={TelaDeSocorro}
+            options={{
+              title: ' ',
+              headerShown:false,
+              headerStyle: {
+                backgroundColor: '#E15100'
+              }
+  
+            }} />
             
             
   

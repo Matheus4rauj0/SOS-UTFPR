@@ -31,10 +31,11 @@ function HomeScreen({ navigation }) {
     <View style={{ flex: 1, alignItems: 'center' }}>
 
 
-      <TouchableOpacity style={styles.button_sos} onPress={() => navigation.navigate('Details')}>
+      <TouchableOpacity style={styles.button_sos} onPress={() => navigation.navigate('telaDeSocorro')}>
         <Image
           style={styles.alerta}
           source={require('../image/alerta.png')}
+
         />
         <Text style={styles.sos}> S.O.S </Text>
       </TouchableOpacity>
